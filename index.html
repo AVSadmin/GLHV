@@ -21,8 +21,22 @@
                     <strong>Note:</strong> This tool only generates heatmaps of your location history, we do not yet have authentic data for cross referring it with valid CoVID-19 cases.
                 </div>
                 <p>Welcome to <b>CTracker</b>, a tool for visualizing your collected Google <a href="https://google.com/locationhistory" target="_blank">Location History</a> data with heatmaps. <i>Don't worry&mdash;all processing and visualization happens directly on your computer, so rest assured that nobody is able to access your Location History but you... and Google, of course.</i></p>
-                <p>To start off, you'll need to go to <a href="https://google.com/takeout" target="_blank">Google Takeout</a> to download your Location History data: on that page, deselect everything except Location History by clicking "Select none" and then reselecting "Location History". Then hit "Next" and, finally, click "Create archive". Once the archive has been created, click "Download". <b>Then, drag and drop <i>takeout-xxxxxx.zip</i> from downloads onto this page.</b> Let the visualization begin!</p>
+                <p>To start off, you'll need to go to <a href="https://takeout.google.com/settings/takeout/custom/location_history" target="_blank">Google Takeout</a> by clicking on the button below to download your Location History data. Then hit "Next" and, finally, click "Create archive". Once the archive has been created, click "Download". <b>Then, drag and drop <i>takeout-xxxxxx.zip</i> from downloads onto this page.</b> Let the visualization begin!</p>
+                <p><button id="takeoutLink">Google Takeout</button></p>
                 <p class="fallback">Alternatively, select your <b>takeout-xxxxxx.zip</b> file directly: <input name="file" type="file" id="file"></input></p>
+            </div>
+
+
+            <!-- Shown in interim while processing is in progress -->
+            <div id="unzipping" class="content-box hidden">
+                <h2>Unzipping Archive...</h2>
+                <div class="loading">
+                    <div class="bounce1"></div>
+                    <div class="bounce2"></div>
+                    <div class="bounce3"></div>
+                </div>
+                <p><span id="unzipStatus">Waking up...</span></p>
+                <p>Please wait while the file is uncompressed.</p>
             </div>
 
             <!-- Shown in interim while processing is in progress -->
@@ -43,7 +57,7 @@
     <!-- Appear when heatmap is displayed -->
     <div id="controls">
         <div class="title">
-            Location History Visualizer
+            CTracker | Heatmap
             <span>(hover for additional controls)</span>
         </div>
         <div class="control-block">

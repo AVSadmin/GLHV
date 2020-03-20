@@ -15,6 +15,14 @@
 	function status( message ) {
 		$( '#currentStatus' ).text( message );
 	}
+
+	$("#takeoutLink").on("click",function(){
+		window.open("https://takeout.google.com/settings/takeout/custom/location_history");
+	});
+
+	function unzipstatus( message ) {
+		$( '#unzipStatus' ).text( message );
+	}
 	// Start at the beginning
 	stageOne();
 
@@ -55,6 +63,12 @@
 			reader.getEntries(function(entries) {
 			  if (entries.length) {
 
+				
+				// First, change tabs
+				$( 'body' ).addClass( 'unzipping' );
+				$( '#intro' ).addClass( 'hidden' );
+				$( '#unzipping' ).removeClass( 'hidden' );
+
 				entries.forEach(function(entry){
 					if(entry.directory==false && entry.filename=="Takeout/Location History/Location History.json")
 						//TJson = entry.getFileEntry;
@@ -74,6 +88,8 @@
 						  // onprogress callback
 						  //console.log(current);
 						  //console.log(total);
+							var percentLoaded = ( 100 * current / total ).toFixed( 0 );
+							unzipstatus( percentLoaded + '% uncompressed...' );
 						});
 				});
 			  }
@@ -103,8 +119,9 @@
 		}
 
 		// First, change tabs
+		$("body").removeClass('unzipping');
 		$( 'body' ).addClass( 'working' );
-		$( '#intro' ).addClass( 'hidden' );
+		$( '#unzipping' ).addClass( 'hidden' );
 		$( '#working' ).removeClass( 'hidden' );
 
 		var SCALAR_E7 = 0.0000001; // Since Google Takeout stores latlngs as integers
